@@ -56,7 +56,7 @@
 				
 				<option value="file0">github.com/tomocy/tornado/list_cmd.go (100.0%)</option>
 				
-				<option value="file1">github.com/tomocy/tornado/tornado.go (66.7%)</option>
+				<option value="file1">github.com/tomocy/tornado/tornado.go (70.0%)</option>
 				
 				</select>
 			</div>
@@ -101,7 +101,7 @@ func (lc listCommand) Run(args []string) int <span class="cov8" title="1">{
 import (
         "fmt"
 
-        clilib "github.com/mitchellh/cli"
+        "github.com/mitchellh/cli"
 )
 
 const (
@@ -118,17 +118,22 @@ func New() Tornado <span class="cov0" title="0">{
 }</span>
 
 type tornado struct {
-        cli *clilib.CLI
+        appName string
+        version string
+        cli     *cli.CLI
 }
 
 func newTornado() *tornado <span class="cov8" title="1">{
-        cli := clilib.NewCLI(appName, version)
-        cli.Commands = map[string]clilib.CommandFactory{
+        tornado := &amp;tornado{
+                appName: "tornado",
+                version: "1.0.0",
+        }
+        tornado.cli = cli.NewCLI(tornado.appName, tornado.version)
+        tornado.cli.Commands = map[string]cli.CommandFactory{
                 "list": listCommandFacotry,
         }
-        return &amp;tornado{
-                cli: cli,
-        }
+
+        return tornado
 }</span>
 
 func (t tornado) Run() int <span class="cov8" title="1">{

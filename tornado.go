@@ -3,7 +3,7 @@ package tornado
 import (
 	"fmt"
 
-	clilib "github.com/mitchellh/cli"
+	"github.com/mitchellh/cli"
 )
 
 const (
@@ -20,17 +20,22 @@ func New() Tornado {
 }
 
 type tornado struct {
-	cli *clilib.CLI
+	appName string
+	version string
+	cli     *cli.CLI
 }
 
 func newTornado() *tornado {
-	cli := clilib.NewCLI(appName, version)
-	cli.Commands = map[string]clilib.CommandFactory{
+	tornado := &tornado{
+		appName: "tornado",
+		version: "1.0.0",
+	}
+	tornado.cli = cli.NewCLI(tornado.appName, tornado.version)
+	tornado.cli.Commands = map[string]cli.CommandFactory{
 		"list": listCommandFacotry,
 	}
-	return &tornado{
-		cli: cli,
-	}
+
+	return tornado
 }
 
 func (t tornado) Run() int {
