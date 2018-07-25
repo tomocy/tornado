@@ -1,6 +1,7 @@
 package tornado
 
 import (
+	"fmt"
 	"testing"
 )
 
@@ -39,16 +40,39 @@ func getNewTornadoTestCases() []struct {
 	}
 }
 
-func TestTornadoRunSuccessfully(t *testing.T) {
-	given := new(tornado)
-	want := getExpectationAsRunningSuccessfully()
-	have := given.Run()
+func TestTornadoRun(t *testing.T) {
+	given := newTornado()
+	thens := getTornadoRunTestCases()
+	for _, then := range thens {
+		fmt.Println(given.cli.Args)
+		given.cli.Args = then.in
+		have := given.Run()
+		if have != then.want {
+			t.Errorf("have %#v, but want %#v", have, then.want)
+		}
 
-	if have != want {
-		t.Errorf("have %#v, but want %#v", have, want)
+		// to reset args
+		given = newTornado()
 	}
 }
 
-func getExpectationAsRunningSuccessfully() int {
-	return 0
+func getTornadoRunTestCases() []struct {
+	in   []string
+	want int
+} {
+	return []struct {
+		in   []string
+		want int
+	}{
+		{
+			in: []string{
+				"list",
+			},
+			want: 0,
+		},
+		{
+			in:   []string{},
+			want: 127,
+		},
+	}
 }

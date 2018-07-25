@@ -1,6 +1,10 @@
 package tornado
 
-import clilib "github.com/mitchellh/cli"
+import (
+	"fmt"
+
+	clilib "github.com/mitchellh/cli"
+)
 
 const (
 	appName = "tornado"
@@ -9,6 +13,10 @@ const (
 
 type Tornado interface {
 	Run() int
+}
+
+func New() Tornado {
+	return newTornado()
 }
 
 type tornado struct {
@@ -26,5 +34,10 @@ func newTornado() *tornado {
 }
 
 func (t tornado) Run() int {
-	return 0
+	code, err := t.cli.Run()
+	if err != nil {
+		fmt.Println(err)
+		return 1
+	}
+	return code
 }

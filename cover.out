@@ -1,7 +1,10 @@
 mode: set
-github.com/tomocy/tornado/list_cmd.go:9.51,11.3 1 0
+github.com/tomocy/tornado/list_cmd.go:9.51,11.3 1 1
 github.com/tomocy/tornado/list_cmd.go:14.41,16.2 1 1
 github.com/tomocy/tornado/list_cmd.go:18.37,20.2 1 1
 github.com/tomocy/tornado/list_cmd.go:22.46,24.2 1 1
-github.com/tomocy/tornado/tornado.go:18.28,26.2 3 1
-github.com/tomocy/tornado/tornado.go:28.28,30.2 1 1
+github.com/tomocy/tornado/tornado.go:18.20,20.2 1 0
+github.com/tomocy/tornado/tornado.go:26.28,34.2 3 1
+github.com/tomocy/tornado/tornado.go:36.28,38.16 2 1
+github.com/tomocy/tornado/tornado.go:42.2,42.13 1 1
+github.com/tomocy/tornado/tornado.go:38.16,41.3 2 0
