@@ -6,11 +6,6 @@ import (
 	"github.com/mitchellh/cli"
 )
 
-const (
-	appName = "tornado"
-	version = "1.0.0"
-)
-
 type Tornado interface {
 	Run() int
 }
