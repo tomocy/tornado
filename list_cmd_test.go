@@ -1,6 +1,23 @@
 package tornado
 
-import "testing"
+import (
+	"reflect"
+	"testing"
+)
+
+func TestListCommandFacotry(t *testing.T) {
+	given := listCommandFacotry
+	want := getListCommand()
+	have, err := given()
+	if err != nil {
+		t.Error("listCommandFactory returns err\n")
+		t.Error(err, "\n")
+	}
+	if !reflect.DeepEqual(have, want) {
+		t.Errorf("have %#v, but want %#v\n", have, want)
+		t.Error("fix something wrong in listCommandFactory")
+	}
+}
 
 func TestListCommandSynophis(t *testing.T) {
 	given := getListCommand()
