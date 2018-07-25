@@ -54,19 +54,26 @@ func TestListCommandHelp(t *testing.T) {
 	}
 }
 
-func TestListCommandRunSuccessfully(t *testing.T) {
+func TestListCommandRun(t *testing.T) {
 	given := getListCommand()
-	then := struct {
-		in   []string
-		want int
-	}{
-		in:   []string{"a"},
-		want: 0,
-	}
+	then := getListcommandRunTestCase()
 	have := given.Run(then.in)
 	if have != then.want {
 		t.Errorf("have %#v, but want %#v\n", have, then.want)
 		t.Errorf("it should be success when in is %#v", then.in)
+	}
+}
+
+func getListcommandRunTestCase() struct {
+	in   []string
+	want int
+} {
+	return struct {
+		in   []string
+		want int
+	}{
+		in:   []string{},
+		want: statusOK,
 	}
 }
 

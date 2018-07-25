@@ -88,7 +88,7 @@ func getTornadoRunTestCases() []struct {
 			in: []string{
 				"list",
 			},
-			want: 0,
+			want: statusOK,
 		},
 		{
 			in:   []string{},

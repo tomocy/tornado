@@ -1,6 +1,7 @@
 package tornado
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -8,8 +9,17 @@ import (
 	"github.com/mitchellh/cli"
 )
 
-var (
+const (
 	fileName = ".tornado"
+)
+
+const (
+	statusOK = iota
+	statusErr
+)
+
+var (
+	errNoSuchFile = errors.New("no such file")
 )
 
 type Tornado interface {
@@ -53,7 +63,7 @@ func (t tornado) Run() int {
 	code, err := t.cli.Run()
 	if err != nil {
 		fmt.Println(err)
-		return 1
+		return statusErr
 	}
 	return code
 }

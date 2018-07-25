@@ -54,7 +54,7 @@
 			<div id="nav">
 				<select id="files">
 				
-				<option value="file0">github.com/tomocy/tornado/list_cmd.go (100.0%)</option>
+				<option value="file0">github.com/tomocy/tornado/list_cmd.go (43.3%)</option>
 				
 				<option value="file1">github.com/tomocy/tornado/tornado.go (66.7%)</option>
 				
@@ -72,7 +72,13 @@
 		
 		<pre class="file" id="file0" style="display: none">package tornado
 
-import "github.com/mitchellh/cli"
+import (
+        "bufio"
+        "fmt"
+        "os"
+
+        "github.com/mitchellh/cli"
+)
 
 type listCommand struct {
         fileName string
@@ -97,13 +103,52 @@ func (lc listCommand) Help() string <span class="cov8" title="1">{
 }</span>
 
 func (lc listCommand) Run(args []string) int <span class="cov8" title="1">{
-        return 0
-}</span>
+        todos, err := lc.getTodos()
+        if err != nil </span><span class="cov8" title="1">{
+                if err == errNoSuchFile </span><span class="cov8" title="1">{
+                        fmt.Println("there is nothing to do!")
+                        return statusOK
+                }</span>
+
+                <span class="cov0" title="0">fmt.Println(err)
+                return statusErr</span>
+        }
+
+        <span class="cov0" title="0">if len(todos) &lt;= 0 </span><span class="cov0" title="0">{
+                fmt.Println("there is nothing to do!")
+                return statusOK
+        }</span>
+        <span class="cov0" title="0">for _, todo := range todos </span><span class="cov0" title="0">{
+                fmt.Println(todo)
+        }</span>
+        <span class="cov0" title="0">return statusOK</span>
+}
+
+func (lc listCommand) getTodos() ([]string, error) <span class="cov8" title="1">{
+        _, err := os.Stat(fileName)
+        if err != nil </span><span class="cov8" title="1">{
+                return nil, errNoSuchFile
+        }</span>
+        <span class="cov0" title="0">f, err := os.Open(lc.fileName)
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, fmt.Errorf("cannot open file %s\n%s", lc.fileName, err)
+        }</span>
+        <span class="cov0" title="0">defer f.Close()
+
+        todos := make([]string, 0)
+        scanner := bufio.NewScanner(f)
+        for scanner.Scan() </span><span class="cov0" title="0">{
+                todos = append(todos, scanner.Text())
+        }</span>
+
+        <span class="cov0" title="0">return todos, nil</span>
+}
 </pre>
 		
 		<pre class="file" id="file1" style="display: none">package tornado
 
 import (
+        "errors"
         "fmt"
         "os"
         "path/filepath"
@@ -111,8 +156,17 @@ import (
         "github.com/mitchellh/cli"
 )
 
-var (
+const (
         fileName = ".tornado"
+)
+
+const (
+        statusOK = iota
+        statusErr
+)
+
+var (
+        errNoSuchFile = errors.New("no such file")
 )
 
 type Tornado interface {
@@ -156,7 +210,7 @@ func (t tornado) Run() int <span class="cov8" title="1">{
         code, err := t.cli.Run()
         if err != nil </span><span class="cov0" title="0">{
                 fmt.Println(err)
-                return 1
+                return statusErr
         }</span>
         <span class="cov8" title="1">return code</span>
 }
