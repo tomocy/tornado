@@ -4,8 +4,11 @@ github.com/tomocy/tornado/list_cmd.go:14.37,16.3 1 1
 github.com/tomocy/tornado/list_cmd.go:19.41,21.2 1 1
 github.com/tomocy/tornado/list_cmd.go:23.37,25.2 1 1
 github.com/tomocy/tornado/list_cmd.go:27.46,29.2 1 1
-github.com/tomocy/tornado/tornado.go:17.20,19.2 1 0
-github.com/tomocy/tornado/tornado.go:27.28,38.2 4 1
-github.com/tomocy/tornado/tornado.go:40.28,42.16 2 1
-github.com/tomocy/tornado/tornado.go:46.2,46.13 1 1
-github.com/tomocy/tornado/tornado.go:42.16,45.3 2 0
+github.com/tomocy/tornado/tornado.go:19.20,21.2 1 0
+github.com/tomocy/tornado/tornado.go:29.28,40.2 4 1
+github.com/tomocy/tornado/tornado.go:42.42,44.16 2 1
+github.com/tomocy/tornado/tornado.go:49.2,49.37 1 1
+github.com/tomocy/tornado/tornado.go:44.16,47.3 2 0
+github.com/tomocy/tornado/tornado.go:52.28,54.16 2 1
+github.com/tomocy/tornado/tornado.go:58.2,58.13 1 1
+github.com/tomocy/tornado/tornado.go:54.16,57.3 2 0

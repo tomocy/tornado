@@ -2,6 +2,8 @@ package tornado
 
 import (
 	"fmt"
+	"os"
+	"path/filepath"
 
 	"github.com/mitchellh/cli"
 )
@@ -31,10 +33,20 @@ func newTornado() *tornado {
 	}
 	tornado.cli = cli.NewCLI(tornado.appName, tornado.version)
 	tornado.cli.Commands = map[string]cli.CommandFactory{
-		"list": getListCommandFactory(fileName),
+		"list": getListCommandFactory(getFilePath(fileName)),
 	}
 
 	return tornado
+}
+
+func getFilePath(fileName string) string {
+	dir, err := os.Getwd()
+	if err != nil {
+		homeDir := os.Getenv("HOME")
+		return filepath.Join(homeDir, fileName)
+	}
+
+	return filepath.Join(dir, fileName)
 }
 
 func (t tornado) Run() int {

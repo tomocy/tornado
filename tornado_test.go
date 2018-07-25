@@ -39,6 +39,28 @@ func getNewTornadoTestCases() []struct {
 	}
 }
 
+func TestGetFilePath(t *testing.T) {
+	then := getGetFilePathTestCase()
+	have := getFilePath(then.in)
+	if have != then.want {
+		t.Errorf("have %#v, but want %#v\n", have, then.want)
+		t.Error("fix something wrong in getFullFileName")
+	}
+}
+
+func getGetFilePathTestCase() struct {
+	in   string
+	want string
+} {
+	fileName := ".test"
+	return struct {
+		in   string
+		want string
+	}{
+		in:   fileName,
+		want: "/Users/socialis/vagrant/go/code/src/github.com/tomocy/tornado/" + fileName,
+	}
+}
 func TestTornadoRun(t *testing.T) {
 	given := newTornado()
 	thens := getTornadoRunTestCases()
