@@ -5,17 +5,32 @@ import (
 	"testing"
 )
 
-func TestListCommandFacotry(t *testing.T) {
-	given := listCommandFacotry
-	want := getListCommand()
-	have, err := given()
+func TestGetListCommandFacotry(t *testing.T) {
+	then := getMakeListCommandFacotryTestCase()
+	have, err := getListCommandFactory(then.in)()
 	if err != nil {
-		t.Error("listCommandFactory returns err\n")
-		t.Error(err, "\n")
+		t.Error("makeListCommandFactory return err\n")
+		t.Error(err)
 	}
-	if !reflect.DeepEqual(have, want) {
-		t.Errorf("have %#v, but want %#v\n", have, want)
-		t.Error("fix something wrong in listCommandFactory")
+	if !reflect.DeepEqual(have, then.want) {
+		t.Errorf("have %#v, but want %#v\n", have, then.want)
+		t.Error("set fileName to listCommand in makeListCommandFactory")
+	}
+}
+
+func getMakeListCommandFacotryTestCase() struct {
+	in   string
+	want listCommand
+} {
+	fileName := ".test"
+	return struct {
+		in   string
+		want listCommand
+	}{
+		in: fileName,
+		want: listCommand{
+			fileName: fileName,
+		},
 	}
 }
 

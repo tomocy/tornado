@@ -1,7 +1,6 @@
 package tornado
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -44,7 +43,6 @@ func TestTornadoRun(t *testing.T) {
 	given := newTornado()
 	thens := getTornadoRunTestCases()
 	for _, then := range thens {
-		fmt.Println(given.cli.Args)
 		given.cli.Args = then.in
 		have := given.Run()
 		if have != then.want {

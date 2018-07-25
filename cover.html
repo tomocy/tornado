@@ -75,13 +75,18 @@
 import "github.com/mitchellh/cli"
 
 type listCommand struct {
+        fileName string
 }
 
-var (
-        listCommandFacotry = func() (cli.Command, error) <span class="cov8" title="1">{
-                return listCommand{}, nil
+func getListCommandFactory(fileName string) func() (cli.Command, error) <span class="cov8" title="1">{
+        listCmd := listCommand{
+                fileName: fileName,
+        }
+
+        return func() (cli.Command, error) </span><span class="cov8" title="1">{
+                return listCmd, nil
         }</span>
-)
+}
 
 func (lc listCommand) Synopsis() string <span class="cov8" title="1">{
         return "list all todos"
@@ -104,9 +109,8 @@ import (
         "github.com/mitchellh/cli"
 )
 
-const (
-        appName = "tornado"
-        version = "1.0.0"
+var (
+        fileName = ".tornado"
 )
 
 type Tornado interface {
@@ -130,7 +134,7 @@ func newTornado() *tornado <span class="cov8" title="1">{
         }
         tornado.cli = cli.NewCLI(tornado.appName, tornado.version)
         tornado.cli.Commands = map[string]cli.CommandFactory{
-                "list": listCommandFacotry,
+                "list": getListCommandFactory(fileName),
         }
 
         return tornado

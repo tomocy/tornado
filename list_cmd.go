@@ -3,13 +3,18 @@ package tornado
 import "github.com/mitchellh/cli"
 
 type listCommand struct {
+	fileName string
 }
 
-var (
-	listCommandFacotry = func() (cli.Command, error) {
-		return listCommand{}, nil
+func getListCommandFactory(fileName string) func() (cli.Command, error) {
+	listCmd := listCommand{
+		fileName: fileName,
 	}
-)
+
+	return func() (cli.Command, error) {
+		return listCmd, nil
+	}
+}
 
 func (lc listCommand) Synopsis() string {
 	return "list all todos"

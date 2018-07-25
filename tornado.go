@@ -6,6 +6,10 @@ import (
 	"github.com/mitchellh/cli"
 )
 
+var (
+	fileName = ".tornado"
+)
+
 type Tornado interface {
 	Run() int
 }
@@ -27,7 +31,7 @@ func newTornado() *tornado {
 	}
 	tornado.cli = cli.NewCLI(tornado.appName, tornado.version)
 	tornado.cli.Commands = map[string]cli.CommandFactory{
-		"list": listCommandFacotry,
+		"list": getListCommandFactory(fileName),
 	}
 
 	return tornado
